@@ -1,13 +1,16 @@
 
-# Master Thesis Project: AI for Barret's Esophagus Dysplasia Detection
+# Detecting aberrant p53 immunohistochemical expression patterns in patients with Barrett’s esophagus using artificial intelligence
 
-This project was done in collaboration with the Pathology department at Amsterdam UMC, location AMC, under supervision of Prof. Erik J. Bekkers, Michel Botros and Dr. Sybren Meijer. The goal was to use different AI model architectures for the task of detecting Barret's Esophagus (a precursor for Esophageal Cancer) lesions in microscopic scans of biopsies from the esophagus, stained with p53 immunohistochemistry.
+This project was conducted in collaboration with the Department of Pathology at Amsterdam UMC and resulted in an accepted publication in the Journal of Medical Imaging. We developed AI models to automatically classify p53 immunohistochemical expression patterns in Barrett’s esophagus biopsies, an important biomarker for dysplasia assessment and cancer risk stratification.
 
-The main model foundations used were CLAM and ResNet, with pretrained RetCCL used for feature extraction. I adapted the model architectures for double-binary classification, and added synthetic data to the dataset to improve the model's performance. The models were trained/tested on part of the LANS dataset and on the BOLERO dataset, which were provided to me by the Pathology department at AUMC.
+Using both full-biopsy CNNs and attention-based multiple-instance learning (CLAM) models with RetCCL features, we focused on detecting clinically relevant TP53 mutation patterns: wild-type, overexpression, null mutation, and double clone (see Figure 2). To improve recognition of rare but high-risk patterns, we introduced a double-binary classification strategy and synthetic double-clone augmentation, leading to substantially improved performance on challenging mutation phenotypes.
 
-<!-- Research summary image from images/summary.png: -->
-![Research Summary](images/summary.png)
-In the above figure you can see an overview of the used full-biopsy and CLAM architectures in (a), the double-binary classification in (b), and CLAM attention maps in (c).
+![Figure 2 – p53 IHC expression patterns](figures/figure_2.png)
+*Examples of p53 immunohistochemical expression patterns: wild-type, overexpression, null mutation, and double clone.*
+
+
+![Research Summary](figures/figure_3.pdf)
+Overview of the data flow for the FB and CLAM-based models. In the FB approach (top), full biopsy images are classified using ResNet-18. In the CLAM approach (bottom), biopsies are split into 256×256 patches, embedded with RetCCL, and aggregated with CLAM attention Class predictions are either four-class or double-binary, depending on the output type.
 
 ## Main files
 - `vis_data.ipynb`: Visualize some aspects of the data like distribution
